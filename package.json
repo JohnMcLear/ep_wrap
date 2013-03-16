@@ -20,7 +20,6 @@
     "url": "git://github.com/johnmclear/ep_wrap.git"
   },
   "dependencies": {
-    "ep_headings": ">=0.1.4"
   },
   "engines": {
     "node": "*"
