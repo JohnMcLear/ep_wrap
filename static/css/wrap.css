@@ -1,0 +1,29 @@
+#editorcontainer.slideshow {
+  overflow: hidden;
+  background-color: #f7f7f7;
+  text-align: center;
+  padding-top: 0px;
+  top:0px;
+  background: url("http://labs.toolness.com/temp/2010-SM-firefox-title.png");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+}
+iframe.slideshow {
+  position:absolute;
+  top:40% !important;
+  max-width:45%;
+  right:0px !important;
+  left:auto !important;
+}
+.menu_left.slideshow {
+  opacity:.1;
+}
+.menu_right.slideshow {
+  opacity:.1;
+}
+.menu_left.slideshow:hover {
+  opacity:1;
+}
+.menu_right.slideshow:hover {
+  opacity:1;
+}

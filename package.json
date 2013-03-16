@@ -1,0 +1,28 @@
+{
+  "name": "ep_wrap",
+  "version": "0.0.1",
+  "keywords": [
+    "slide",
+    "show",
+    "wrap",
+    "powerpoint"
+  ],
+  "description": "Option to disable line wrapping",
+  "contributors": [
+    {
+      "name": "John McLear",
+      "email": "john@mclear.co.uk",
+      "url": "http://mclear.co.uk"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/johnmclear/ep_wrap.git"
+  },
+  "dependencies": {
+    "ep_headings": ">=0.1.4"
+  },
+  "engines": {
+    "node": "*"
+  }
+}

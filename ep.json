@@ -1,0 +1,14 @@
+{
+  "parts": [
+    {
+      "name": "ep_wrap",
+      "client_hooks": {
+        "postAceInit": "ep_wrap/static/js/wrap:postAceInit"
+      },
+      "hooks": {
+        "eejsBlock_mySettings": "ep_wrap/wrap",
+        "eejsBlock_styles": "ep_wrap/wrap"
+      }
+    }
+  ]
+}
