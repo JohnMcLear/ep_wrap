@@ -27,7 +27,6 @@ var postAceInit = function(hook, context){
         if(divWidth > maxWidth){
           maxWidth = divWidth; // get the maximum width
         }
-        console.log("Largest width line is "+maxWidth);
       });
 
       $outerdoc.css({"overflow":"scroll", "width":maxWidth});
@@ -44,7 +43,6 @@ var postAceInit = function(hook, context){
       $outerdoc.css({"overflow":"hidden", "width":"auto"});
       $('iframe[name="ace_outer"]').contents().find('iframe').removeAttr("style");  //applies to ace_inner
 
-
       // hide the popup dialogue
       $(".popup").hide(); 
     },
@@ -52,7 +50,9 @@ var postAceInit = function(hook, context){
       var $innerdoc = $('iframe[name="ace_outer"]').contents().find('iframe').contents().find("#innerdocbody");
       var $outerdoc = $('iframe[name="ace_outer"]').contents().find("#outerdocbody");
       $innerdoc.removeClass('doesWrap');
-      wrap.updateUI;
+      wrap.updateUI();
+      // hide the popup dialogue
+      $(".popup").hide();
     },
     getParam: function(sname)
     {
