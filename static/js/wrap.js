@@ -44,7 +44,7 @@ var postAceInit = function(hook, context){
       $('iframe[name="ace_outer"]').contents().find('iframe').removeAttr("style");  //applies to ace_inner
 
       // hide the popup dialogue
-      $(".popup").hide(); 
+      padeditbar.toggleDropDown();
     },
     disable: function(){ // disable the line wrap functionality
       var $innerdoc = $('iframe[name="ace_outer"]').contents().find('iframe').contents().find("#innerdocbody");
@@ -52,7 +52,7 @@ var postAceInit = function(hook, context){
       $innerdoc.removeClass('doesWrap');
       wrap.updateUI();
       // hide the popup dialogue
-      $(".popup").hide();
+      padeditbar.toggleDropDown();
     },
     getParam: function(sname)
     {
