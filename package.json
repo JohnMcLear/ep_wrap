@@ -2,10 +2,11 @@
   "name": "ep_wrap",
   "version": "0.0.1",
   "keywords": [
-    "slide",
-    "show",
     "wrap",
-    "powerpoint"
+    "wrapping",
+    "text",
+    "syntax",
+    "programming"
   ],
   "description": "Option to disable line wrapping",
   "contributors": [
