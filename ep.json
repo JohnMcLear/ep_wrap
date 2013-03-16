@@ -4,7 +4,7 @@
       "name": "ep_wrap",
       "client_hooks": {
         "postAceInit": "ep_wrap/static/js/wrap:postAceInit",
-        "aceEditEvent": "ep_wrap/static/js/wrap:aceEditEvent"
+        "acePostWriteDomLineHTML": "ep_wrap/static/js/wrap:acePostWriteDomLineHTML"
       },
       "hooks": {
         "eejsBlock_mySettings": "ep_wrap/wrap",

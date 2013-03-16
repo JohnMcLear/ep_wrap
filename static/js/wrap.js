@@ -1,22 +1,22 @@
+// Sorry but we need wrap to be exposed so we can access it
+var wrap;
+
+exports.acePostWriteDomLineHTML = function(callstack, editorInfo, rep, documentAttributeManager){
+  if(wrap && wrap.status() === false){ // if wrapping is disabled
+    wrap.updateUI();
+  }
+}
+
+// When ACE initializes
 var postAceInit = function(hook, context){
-  var wrap = {
-    enable: function() { // enables the line wrap functionality (this is the defualt behavior)
-      var $innerdoc = $('iframe[name="ace_outer"]').contents().find('iframe').contents().find("#innerdocbody");
-      var $outerdoc = $('iframe[name="ace_outer"]').contents().find("#outerdocbody");
-
-      $('iframe[name="ace_outer"]').contents().find('iframe').css("width","auto");
-
-      $innerdoc.addClass('doesWrap');
-      $outerdoc.css({"overflow":"hidden", "width":"auto"});
-      $('iframe[name="ace_outer"]').contents().find('iframe').css({"width": "auto"});
-
-      // hide the popup dialogue
-      $(".popup").hide(); 
+  wrap = {
+    status: function(){
+      return $('#options-wrap').is(':checked');
     },
-    disable: function() { // disable the line wrap functionality
+    updateUI: function(){
+      var maxWidth = 0;
       var $innerdoc = $('iframe[name="ace_outer"]').contents().find('iframe').contents().find("#innerdocbody");
       var $outerdoc = $('iframe[name="ace_outer"]').contents().find("#outerdocbody");
-      var maxWidth = 0;
 
       $innerdoc.find("div").each(function(){ // for each div
         var divWidth = 0;
@@ -27,14 +27,32 @@ var postAceInit = function(hook, context){
         if(divWidth > maxWidth){
           maxWidth = divWidth; // get the maximum width
         }
-        // console.log("Largest width line is "+maxWidth);
+        console.log("Largest width line is "+maxWidth);
       });
 
-      $('iframe[name="ace_outer"]').contents().find('iframe').css("width",maxWidth+"px");
-
-      $innerdoc.removeClass('doesWrap');
       $outerdoc.css({"overflow":"scroll", "width":maxWidth});
-      $('iframe[name="ace_outer"]').contents().find('iframe').css({"width":maxWidth + "px !important"});
+      maxWidth = maxWidth+10;
+      $('iframe[name="ace_outer"]').contents().find('iframe').css("cssText", "width:"+maxWidth + "px !important");  //applies to ace_inner
+    },
+    enable: function(){ // enables the line wrap functionality (this is the defualt behavior)
+      var $innerdoc = $('iframe[name="ace_outer"]').contents().find('iframe').contents().find("#innerdocbody");
+      var $outerdoc = $('iframe[name="ace_outer"]').contents().find("#outerdocbody");
+
+      $('iframe[name="ace_outer"]').contents().find('iframe').css("width","auto");
+
+      $innerdoc.addClass('doesWrap');
+      $outerdoc.css({"overflow":"hidden", "width":"auto"});
+      $('iframe[name="ace_outer"]').contents().find('iframe').removeAttr("style");  //applies to ace_inner
+
+
+      // hide the popup dialogue
+      $(".popup").hide(); 
+    },
+    disable: function(){ // disable the line wrap functionality
+      var $innerdoc = $('iframe[name="ace_outer"]').contents().find('iframe').contents().find("#innerdocbody");
+      var $outerdoc = $('iframe[name="ace_outer"]').contents().find("#outerdocbody");
+      $innerdoc.removeClass('doesWrap');
+      wrap.updateUI;
     },
     getParam: function(sname)
     {
