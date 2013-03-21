@@ -40,7 +40,7 @@ var postAceInit = function(hook, context){
       $('iframe[name="ace_outer"]').contents().find('iframe').css("width","auto");
 
       $innerdoc.addClass('doesWrap');
-      $outerdoc.css({"overflow":"hidden", "width":"auto"});
+      // $outerdoc.css({"overflow":"hidden", "width":"auto"}); /* Breaks Firefox scrolling */
       $('iframe[name="ace_outer"]').contents().find('iframe').removeAttr("style");  //applies to ace_inner
 
       // hide the popup dialogue
