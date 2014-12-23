@@ -50,7 +50,7 @@ var postAceInit = function(hook, context){
       });
 
       $outerdoc.css({"overflow":"scroll", "width":maxWidth});
-      maxWidth = maxWidth+100;
+      maxWidth = maxWidth+10;
       $('iframe[name="ace_outer"]').contents().find('iframe').css("cssText", "width:"+maxWidth + "px !important");  //applies to ace_inner
     },
     enable: function(){ // enables the line wrap functionality (this is the defualt behavior)
