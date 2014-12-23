@@ -34,6 +34,7 @@ var postAceInit = function(hook, context){
       return $('#options-wrap').is(':checked');
     },
     updateUI: function(){
+      // this is all bad.  This should be done on an edit event.
       var maxWidth = 0;
       var $innerdoc = $('iframe[name="ace_outer"]').contents().find('iframe').contents().find("#innerdocbody");
       var $outerdoc = $('iframe[name="ace_outer"]').contents().find("#outerdocbody");
@@ -41,15 +42,15 @@ var postAceInit = function(hook, context){
       $innerdoc.find("div").each(function(){ // for each div
         var divWidth = 0;
         $(this).children().each(function(){ // for each span
-          var spanWidth = $(this).width();
+          var spanWidth = $(this).context.offsetWidth;
           divWidth = divWidth + spanWidth; // get the div total width
         });
-        if(divWidth > maxWidth){
+        if(divWidth >= maxWidth){
           maxWidth = divWidth; // get the maximum width
         }
       });
       $outerdoc.css({"overflow":"scroll", "width":maxWidth});
-      maxWidth = maxWidth+50;
+      maxWidth = maxWidth+10;
       $('iframe[name="ace_outer"]').contents().find('iframe').css("cssText", "width:"+maxWidth + "px !important");  //applies to ace_inner
     },
     enable: function(){ // enables the line wrap functionality (this is the defualt behavior)
@@ -71,12 +72,11 @@ var postAceInit = function(hook, context){
       var $innerdoc = $('iframe[name="ace_outer"]').contents().find('iframe').contents().find("#innerdocbody");
       var $outerdoc = $('iframe[name="ace_outer"]').contents().find("#outerdocbody");
       $innerdoc.removeClass('doesWrap');
-      wrap.updateUI();
       // hide the popup dialogue
       padeditbar.toggleDropDown();
 
       clientVars.plugins.plugins.ep_wrap.enabled = true;
-
+      wrap.updateUI();
     },
     getParam: function(sname)
     {
