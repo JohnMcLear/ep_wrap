@@ -40,17 +40,16 @@ var postAceInit = function(hook, context){
 
       $innerdoc.find("div").each(function(){ // for each div
         var divWidth = 0;
-        $(this).find("span").each(function(){ // for each span
-          var spanWidth = $(this).context.offsetWidth;
+        $(this).children().each(function(){ // for each span
+          var spanWidth = $(this).width();
           divWidth = divWidth + spanWidth; // get the div total width
         });
         if(divWidth > maxWidth){
           maxWidth = divWidth; // get the maximum width
         }
       });
-
       $outerdoc.css({"overflow":"scroll", "width":maxWidth});
-      maxWidth = maxWidth+10;
+      maxWidth = maxWidth+50;
       $('iframe[name="ace_outer"]').contents().find('iframe').css("cssText", "width:"+maxWidth + "px !important");  //applies to ace_inner
     },
     enable: function(){ // enables the line wrap functionality (this is the defualt behavior)
