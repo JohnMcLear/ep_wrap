@@ -7,6 +7,26 @@ exports.acePostWriteDomLineHTML = function(callstack, editorInfo, rep, documentA
   }
 }
 
+// Required to bring page back into focus when caret hits first char
+exports.aceEditEvent = function(hook, call){
+  // If it's not a click or a key event
+  var cs = call.callstack;
+  if(!(cs.type == "handleClick") && !(cs.type == "handleKeyEvent")){
+    return false;
+  }
+  // If it's an initial setup event then do nothing..
+  if(cs.type == "setBaseText" || cs.type == "setup") return false;
+  // A bug exists here where indented content has a selStart of 1 ;\
+  setTimeout(function(){ // avoid race condition..
+    if(call.rep.selStart[1] === 0){
+      if(clientVars.plugins.plugins.ep_wrap.enabled){
+        // Thsi is a bit jerky but it works..  Resolves https://github.com/JohnMcLear/ep_wrap/issues/3
+        $('iframe[name="ace_outer"]').contents().find("#outerdocbody").scrollLeft(0);
+      }
+    }
+  }, 250);
+}
+
 // When ACE initializes
 var postAceInit = function(hook, context){
   wrap = {
@@ -30,7 +50,7 @@ var postAceInit = function(hook, context){
       });
 
       $outerdoc.css({"overflow":"scroll", "width":maxWidth});
-      maxWidth = maxWidth+10;
+      maxWidth = maxWidth+100;
       $('iframe[name="ace_outer"]').contents().find('iframe').css("cssText", "width:"+maxWidth + "px !important");  //applies to ace_inner
     },
     enable: function(){ // enables the line wrap functionality (this is the defualt behavior)
@@ -43,6 +63,8 @@ var postAceInit = function(hook, context){
       // $outerdoc.css({"overflow":"hidden", "width":"auto"}); /* Breaks Firefox scrolling */
       $('iframe[name="ace_outer"]').contents().find('iframe').removeAttr("style");  //applies to ace_inner
 
+      clientVars.plugins.plugins.ep_wrap.enabled = false;
+
       // hide the popup dialogue
       padeditbar.toggleDropDown();
     },
@@ -53,6 +75,9 @@ var postAceInit = function(hook, context){
       wrap.updateUI();
       // hide the popup dialogue
       padeditbar.toggleDropDown();
+
+      clientVars.plugins.plugins.ep_wrap.enabled = true;
+
     },
     getParam: function(sname)
     {
